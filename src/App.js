@@ -2,6 +2,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import About from './components/About/About';
+import Friends from './components/Friends/Friends';
+import FriendsDetails from './components/FriendsDetails/FriendsDetails';
 import Home from './components/Home/Home';
 import Products from './components/Products/Products';
 import Main from './layout/Main';
@@ -13,7 +15,16 @@ function App() {
       children:[
         {path: '/', element:<Home/>},
         {path: '/home', element:<Home/>},
-        {path:'/products', element:<Products/>}
+        {path:'/products', element:<Products/>},
+        {
+          path: 'friends', loader:async()=>{
+            return fetch('https://jsonplaceholder.typicode.com/users')
+          } ,
+          element:<Friends/>
+        },
+        {
+          path:'/friend/:friendId', element:<FriendsDetails/>
+        }
       ]
   },
     {path:'about', element:<About/>},
