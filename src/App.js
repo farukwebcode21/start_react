@@ -17,14 +17,20 @@ function App() {
         {path: '/home', element:<Home/>},
         {path:'/products', element:<Products/>},
         {
-          path: 'friends', loader:async()=>{
+          path: 'friends', 
+          loader:async()=>{
             return fetch('https://jsonplaceholder.typicode.com/users')
           } ,
           element:<Friends/>
         },
         {
-          path:'/friend/:friendId', element:<FriendsDetails/>
+          path:'/friend/:friendId',
+          loader:async({params})=>{
+            return fetch(`https://jsonplaceholder.typicode.com/users/${params.friendId}`)
+          },
+           element:<FriendsDetails/>
         }
+       
       ]
   },
     {path:'about', element:<About/>},
